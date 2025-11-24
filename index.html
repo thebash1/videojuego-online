@@ -9,11 +9,27 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #06b6d4;
+            --dark: #1f2937;
+            --light: #f8fafc;
+            --gray: #6b7280;
+            --purple-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --orange-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --teal-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--purple-gradient);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -24,194 +40,388 @@
         .game-container {
             background: white;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .game-header {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
+            background: var(--dark);
             color: white;
-            padding: 20px;
+            padding: 25px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--secondary);
         }
 
         .game-header h1 {
-            font-size: 2em;
-            margin-bottom: 10px;
+            font-size: 2.2em;
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .game-stats {
             display: flex;
             justify-content: space-around;
-            background: #34495e;
-            padding: 15px;
+            background: var(--dark);
+            padding: 20px;
             color: white;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .stat {
             text-align: center;
+            padding: 10px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 5px;
         }
 
         .stat-value {
-            font-size: 1.5em;
+            font-size: 1.6em;
             font-weight: bold;
-            color: #f39c12;
+            color: var(--secondary);
         }
 
         .game-content {
             padding: 30px;
+            min-height: 400px;
         }
 
         .level-screen {
             text-align: center;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .level-title {
-            color: #2c3e50;
+            color: var(--dark);
             font-size: 1.8em;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 12px;
+            background: var(--light);
+            border-left: 4px solid var(--primary);
         }
 
+        .level-1 .level-title { border-left-color: var(--primary); }
+        .level-2 .level-title { border-left-color: var(--warning); }
+        .level-3 .level-title { border-left-color: var(--success); }
+
         .mission-card {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 20px 0;
-            border-left: 5px solid #3498db;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 2px solid #e5e7eb;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .mission-card h3 {
+            color: var(--dark);
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mission-card h3::before {
+            content: '🎯';
+            font-size: 1.2em;
         }
 
         .equation {
-            font-size: 2em;
-            margin: 20px 0;
-            color: #2c3e50;
+            font-size: 2.2em;
+            margin: 25px 0;
+            color: var(--dark);
             font-family: 'Courier New', monospace;
+            background: var(--light);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px dashed #d1d5db;
         }
 
         .input-group {
             margin: 25px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .input-group label {
+            font-size: 1.3em;
+            color: var(--dark);
+            font-weight: 600;
         }
 
         .input-group input {
-            width: 120px;
-            padding: 12px;
-            font-size: 1.2em;
+            width: 140px;
+            padding: 15px;
+            font-size: 1.3em;
             text-align: center;
-            border: 2px solid #bdc3c7;
-            border-radius: 8px;
-            margin: 0 10px;
+            border: 2px solid #d1d5db;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background: var(--light);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
 
         .btn {
-            padding: 12px 30px;
+            padding: 14px 32px;
             font-size: 1.1em;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            margin: 5px;
+            margin: 8px;
             transition: all 0.3s ease;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .btn-primary {
-            background: #3498db;
+            background: var(--primary);
             color: white;
         }
 
         .btn-success {
-            background: #27ae60;
+            background: var(--success);
             color: white;
         }
 
         .btn-warning {
-            background: #f39c12;
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-info {
+            background: var(--info);
             color: white;
         }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
+
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-success:hover { background: #059669; }
+        .btn-warning:hover { background: #d97706; }
+        .btn-info:hover { background: #0891b2; }
 
         .feedback {
             margin: 20px 0;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 12px;
             text-align: center;
             font-weight: bold;
             display: none;
+            animation: popIn 0.5s ease-out;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .feedback.correct {
-            background: #d4edda;
-            color: #155724;
-            border: 2px solid #c3e6cb;
+            background: #dcfce7;
+            color: #166534;
+            border: 2px solid #bbf7d0;
         }
 
         .feedback.incorrect {
-            background: #f8d7da;
-            color: #721c24;
-            border: 2px solid #f5c6cb;
+            background: #fef2f2;
+            color: #991b1b;
+            border: 2px solid #fecaca;
         }
 
         .hint {
-            background: #fff3cd;
-            color: #856404;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
+            background: #fffbeb;
+            color: #92400e;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid var(--warning);
             display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .hint::before {
+            content: '💡';
+            margin-right: 10px;
+            font-size: 1.2em;
         }
 
         .lives {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin: 15px 0;
+            gap: 12px;
+            margin: 20px 0;
         }
 
         .life {
-            width: 30px;
-            height: 30px;
-            background: #e74c3c;
+            width: 32px;
+            height: 32px;
+            background: var(--danger);
             border-radius: 50%;
-            animation: pulse 1.5s infinite;
+            animation: pulse 2s infinite;
+            position: relative;
+        }
+
+        .life::before {
+            content: '❤️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2em;
         }
 
         .life.lost {
-            background: #bdc3c7;
+            background: #9ca3af;
             animation: none;
         }
 
+        .life.lost::before {
+            content: '💔';
+        }
+
         @keyframes pulse {
-            0% { transform: scale(1); }
+            0%, 100% { transform: scale(1); }
             50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
         }
 
         .completion-screen {
             text-align: center;
             display: none;
+            animation: fadeIn 0.8s ease-out;
         }
 
         .badge {
-            font-size: 4em;
+            font-size: 5em;
             margin: 20px 0;
+            animation: bounce 1s infinite alternate;
         }
 
-        @media (max-width: 600px) {
+        @keyframes bounce {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-20px); }
+        }
+
+        .level-badge {
+            font-size: 3em;
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--success);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        @media (max-width: 768px) {
             .game-container {
                 margin: 10px;
+                border-radius: 15px;
             }
             
             .equation {
-                font-size: 1.5em;
+                font-size: 1.6em;
+                padding: 15px;
             }
             
             .game-stats {
                 flex-direction: column;
+                gap: 15px;
+            }
+            
+            .input-group {
+                flex-direction: column;
                 gap: 10px;
             }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .mission-complete {
+            border-color: var(--success);
+            background: #f0fdf4;
+        }
+
+        .mission-complete::before {
+            background: var(--success);
         }
     </style>
 </head>
@@ -224,15 +434,19 @@
 
         <div class="game-stats">
             <div class="stat">
-                <div>Nivel</div>
+                <div class="stat-label">Nivel</div>
                 <div class="stat-value" id="level">1</div>
             </div>
             <div class="stat">
-                <div>Puntos</div>
+                <div class="stat-label">Puntos</div>
                 <div class="stat-value" id="points">0</div>
             </div>
             <div class="stat">
-                <div>Vidas</div>
+                <div class="stat-label">Misión</div>
+                <div class="stat-value" id="mission">1/2</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Vidas</div>
                 <div class="lives">
                     <div class="life"></div>
                     <div class="life"></div>
@@ -242,11 +456,14 @@
         </div>
 
         <div class="game-content">
-            <!-- Pantalla de Nivel 1 -->
-            <div id="level1" class="level-screen">
+            <!-- NIVEL 1 -->
+            <div id="level1" class="level-screen level-1">
                 <h2 class="level-title">🔍 Reino 1: Tierra de las Ecuaciones Básicas</h2>
+                <div class="progress-bar">
+                    <div class="progress" id="progress1" style="width: 0%"></div>
+                </div>
                 
-                <div class="mission-card">
+                <div class="mission-card" id="mission1">
                     <h3>Misión 1: Encuentra el Valor Oculto</h3>
                     <div class="equation">x + 8 = 15</div>
                     
@@ -255,17 +472,21 @@
                         <input type="number" id="answer1" placeholder="?">
                     </div>
 
-                    <button class="btn btn-primary" onclick="checkAnswer(1)">Verificar</button>
-                    <button class="btn btn-warning" onclick="showHint(1)">Pista (-20 pts)</button>
+                    <button class="btn btn-primary" onclick="checkAnswer(1)">
+                        <span>✅</span> Verificar
+                    </button>
+                    <button class="btn btn-warning" onclick="showHint(1)">
+                        <span>💡</span> Pista (-20 pts)
+                    </button>
 
                     <div id="hint1" class="hint">
-                        💡 Pista: Si x está sumando, pasa al otro lado restando: x = 15 - 8
+                        Si x está sumando, pasa al otro lado restando: x = 15 - 8
                     </div>
 
                     <div id="feedback1" class="feedback"></div>
                 </div>
 
-                <div class="mission-card" id="mission2" style="display: none;">
+                <div class="mission-card hidden" id="mission2">
                     <h3>Misión 2: Descifra el Código Secreto</h3>
                     <div class="equation">3y = 21</div>
                     
@@ -274,24 +495,164 @@
                         <input type="number" id="answer2" placeholder="?">
                     </div>
 
-                    <button class="btn btn-primary" onclick="checkAnswer(2)">Verificar</button>
-                    <button class="btn btn-warning" onclick="showHint(2)">Pista (-20 pts)</button>
+                    <button class="btn btn-primary" onclick="checkAnswer(2)">
+                        <span>✅</span> Verificar
+                    </button>
+                    <button class="btn btn-warning" onclick="showHint(2)">
+                        <span>💡</span> Pista (-20 pts)
+                    </button>
 
                     <div id="hint2" class="hint">
-                        💡 Pista: Si 3 está multiplicando, pasa al otro lado dividiendo: y = 21 ÷ 3
+                        Si 3 está multiplicando, pasa al otro lado dividiendo: y = 21 ÷ 3
                     </div>
 
                     <div id="feedback2" class="feedback"></div>
                 </div>
             </div>
 
-            <!-- Pantalla de Completación -->
-            <div id="completionScreen" class="completion-screen">
-                <div class="badge">🥇</div>
-                <h2>¡Nivel Completado!</h2>
-                <p>Has ganado <span id="levelPoints">0</span> puntos</p>
-                <p>Insignia desbloqueada: <strong>Explorador Inicial</strong></p>
-                <button class="btn btn-success" onclick="nextLevel()">Continuar al Reino 2</button>
+            <!-- NIVEL 2 -->
+            <div id="level2" class="level-screen level-2 hidden">
+                <h2 class="level-title">🧩 Reino 2: Valle de los Paréntesis</h2>
+                <div class="progress-bar">
+                    <div class="progress" id="progress2" style="width: 0%"></div>
+                </div>
+                
+                <div class="mission-card" id="mission3">
+                    <h3>Misión 3: Desbloquea la Puerta Mágica</h3>
+                    <div class="equation">2(x + 3) = 16</div>
+                    
+                    <div class="input-group">
+                        <label>x = </label>
+                        <input type="number" id="answer3" placeholder="?">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="checkAnswer(3)">
+                        <span>✅</span> Verificar
+                    </button>
+                    <button class="btn btn-warning" onclick="showHint(3)">
+                        <span>💡</span> Pista (-20 pts)
+                    </button>
+
+                    <div id="hint3" class="hint">
+                        Primero divide ambos lados por 2: x + 3 = 8, luego resta 3: x = 5
+                    </div>
+
+                    <div id="feedback3" class="feedback"></div>
+                </div>
+
+                <div class="mission-card hidden" id="mission4">
+                    <h3>Misión 4: Resuelve el Acertijo Ancestral</h3>
+                    <div class="equation">4(2y - 1) = 20</div>
+                    
+                    <div class="input-group">
+                        <label>y = </label>
+                        <input type="number" id="answer4" placeholder="?">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="checkAnswer(4)">
+                        <span>✅</span> Verificar
+                    </button>
+                    <button class="btn btn-warning" onclick="showHint(4)">
+                        <span>💡</span> Pista (-20 pts)
+                    </button>
+
+                    <div id="hint4" class="hint">
+                        Divide por 4: 2y - 1 = 5, luego suma 1: 2y = 6, finalmente divide por 2: y = 3
+                    </div>
+
+                    <div id="feedback4" class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- NIVEL 3 -->
+            <div id="level3" class="level-screen level-3 hidden">
+                <h2 class="level-title">💰 Reino 3: Ciudad de los Problemas Reales</h2>
+                <div class="progress-bar">
+                    <div class="progress" id="progress3" style="width: 0%"></div>
+                </div>
+                
+                <div class="mission-card" id="mission5">
+                    <h3>Misión 5: El Problema de las Manzanas</h3>
+                    <div class="equation">3x + 2y = 8000<br>x + 4y = 7000</div>
+                    <p style="color: var(--gray); margin: 15px 0; font-style: italic;">
+                        Ana compra 3 manzanas y 2 naranjas por $8.000<br>
+                        Carlos compra 1 manzana y 4 naranjas por $7.000
+                    </p>
+                    
+                    <div class="input-group">
+                        <label>Manzana (x) = $</label>
+                        <input type="number" id="answer5x" placeholder="?">
+                        <label>Naranja (y) = $</label>
+                        <input type="number" id="answer5y" placeholder="?">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="checkAnswer(5)">
+                        <span>✅</span> Verificar
+                    </button>
+                    <button class="btn btn-warning" onclick="showHint(5)">
+                        <span>💡</span> Pista (-20 pts)
+                    </button>
+
+                    <div id="hint5" class="hint">
+                        Usa sustitución: de la segunda ecuación, x = 7000 - 4y. Sustituye en la primera.
+                    </div>
+
+                    <div id="feedback5" class="feedback"></div>
+                </div>
+
+                <div class="mission-card hidden" id="mission6">
+                    <h3>Misión 6: El Misterio de las Edades</h3>
+                    <div class="equation">x = 2y<br>(x - 5) + (y - 5) = 25</div>
+                    <p style="color: var(--gray); margin: 15px 0; font-style: italic;">
+                        Pedro tiene el doble de la edad de María.<br>
+                        Hace 5 años, la suma de sus edades era 25.
+                    </p>
+                    
+                    <div class="input-group">
+                        <label>Pedro (x) = </label>
+                        <input type="number" id="answer6x" placeholder="?">
+                        <label>años | María (y) = </label>
+                        <input type="number" id="answer6y" placeholder="?">
+                        <label>años</label>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="checkAnswer(6)">
+                        <span>✅</span> Verificar
+                    </button>
+                    <button class="btn btn-warning" onclick="showHint(6)">
+                        <span>💡</span> Pista (-20 pts)
+                    </button>
+
+                    <div id="hint6" class="hint">
+                        Sustituye x = 2y en la segunda ecuación: (2y - 5) + (y - 5) = 25
+                    </div>
+
+                    <div id="feedback6" class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- PANTALLA DE COMPLETACIÓN -->
+            <div id="completionScreen" class="completion-screen hidden">
+                <div class="badge" id="completionBadge">🥇</div>
+                <h2 id="completionTitle">¡Nivel Completado!</h2>
+                <p>Has ganado <span id="levelPoints" class="stat-value">0</span> puntos en este nivel</p>
+                <p id="completionMessage">Insignia desbloqueada: <strong>Explorador Inicial</strong></p>
+                <div class="level-badge" id="nextLevelBadge">🔜</div>
+                <button class="btn btn-success" onclick="nextLevel()">
+                    <span>🚀</span> Continuar al Siguiente Reino
+                </button>
+            </div>
+
+            <!-- PANTALLA FINAL -->
+            <div id="finalScreen" class="completion-screen hidden">
+                <div class="badge">🏆</div>
+                <h2>¡Felicidades, Maestro del Álgebra!</h2>
+                <p>Has completado todos los reinos matemáticos</p>
+                <p class="stat-value" id="finalPoints">0</p>
+                <p>Puntos totales acumulados</p>
+                <button class="btn btn-info" onclick="restartGame()">
+                    <span>🔄</span> Jugar Nuevamente
+                </button>
             </div>
         </div>
     </div>
@@ -303,40 +664,73 @@
             points: 0,
             lives: 3,
             currentMission: 1,
+            totalMissions: 6,
             missionsCompleted: 0
         };
 
         // Respuestas correctas
         const correctAnswers = {
-            1: 7,   // x + 8 = 15 → x = 7
-            2: 7    // 3y = 21 → y = 7
+            1: { x: 7 },                              // x + 8 = 15
+            2: { y: 7 },                              // 3y = 21
+            3: { x: 5 },                              // 2(x + 3) = 16
+            4: { y: 3 },                              // 4(2y - 1) = 20
+            5: { x: 2000, y: 1000 },                  // Sistema: 3x + 2y = 8000, x + 4y = 7000
+            6: { x: 20, y: 10 }                       // Sistema: x = 2y, (x-5)+(y-5)=25
+        };
+
+        // Configuración de niveles
+        const levelConfig = {
+            1: { missions: [1, 2], badge: "🥉", title: "Explorador Inicial" },
+            2: { missions: [3, 4], badge: "🥈", title: "Estratega de Paréntesis" },
+            3: { missions: [5, 6], badge: "🥇", title: "Resolvedor de Problemas" }
         };
 
         // Pistas mostradas
-        const hintsShown = {
-            1: false,
-            2: false
-        };
+        const hintsShown = { 1: false, 2: false, 3: false, 4: false, 5: false, 6: false };
 
         function checkAnswer(missionNumber) {
-            const input = document.getElementById(`answer${missionNumber}`);
             const feedback = document.getElementById(`feedback${missionNumber}`);
-            const userAnswer = parseInt(input.value);
+            let isCorrect = false;
 
-            if (userAnswer === correctAnswers[missionNumber]) {
+            if (missionNumber <= 4) {
+                // Misiones simples (1 variable)
+                const input = document.getElementById(`answer${missionNumber}`);
+                const userAnswer = parseInt(input.value);
+                const correctAnswer = Object.values(correctAnswers[missionNumber])[0];
+                isCorrect = userAnswer === correctAnswer;
+            } else {
+                // Misiones con sistema de ecuaciones (2 variables)
+                const inputX = document.getElementById(`answer${missionNumber}x`);
+                const inputY = document.getElementById(`answer${missionNumber}y`);
+                const userX = parseInt(inputX.value);
+                const userY = parseInt(inputY.value);
+                isCorrect = userX === correctAnswers[missionNumber].x && 
+                           userY === correctAnswers[missionNumber].y;
+            }
+
+            if (isCorrect) {
                 // Respuesta correcta
                 feedback.textContent = "✅ ¡Correcto! +100 puntos";
                 feedback.className = "feedback correct";
                 feedback.style.display = 'block';
                 
                 gameState.points += 100;
-                updatePoints();
+                gameState.missionsCompleted++;
+                updateDisplay();
+                
+                // Marcar misión como completada
+                const missionCard = document.getElementById(`mission${missionNumber}`);
+                missionCard.classList.add('mission-complete');
+                
+                // Actualizar progreso
+                updateProgress();
                 
                 // Mostrar siguiente misión o completar nivel
                 setTimeout(() => {
-                    if (missionNumber === 1) {
-                        document.getElementById('mission2').style.display = 'block';
-                        gameState.currentMission = 2;
+                    const nextMission = missionNumber + 1;
+                    if (nextMission <= gameState.totalMissions) {
+                        showMission(nextMission);
+                        gameState.currentMission = nextMission;
                     } else {
                         completeLevel();
                     }
@@ -349,7 +743,7 @@
                 feedback.style.display = 'block';
                 
                 gameState.lives--;
-                updateLives();
+                updateDisplay();
                 
                 if (gameState.lives === 0) {
                     setTimeout(gameOver, 1000);
@@ -362,59 +756,125 @@
                 const hint = document.getElementById(`hint${missionNumber}`);
                 hint.style.display = 'block';
                 gameState.points = Math.max(0, gameState.points - 20);
-                updatePoints();
+                updateDisplay();
                 hintsShown[missionNumber] = true;
             }
         }
 
+        function showMission(missionNumber) {
+            // Ocultar todas las misiones del nivel actual
+            const currentLevelMissions = levelConfig[gameState.level].missions;
+            currentLevelMissions.forEach(mission => {
+                document.getElementById(`mission${mission}`).classList.add('hidden');
+            });
+            
+            // Mostrar la misión específica
+            document.getElementById(`mission${missionNumber}`).classList.remove('hidden');
+        }
+
         function completeLevel() {
-            document.getElementById('level1').style.display = 'none';
-            document.getElementById('completionScreen').style.display = 'block';
+            document.getElementById(`level${gameState.level}`).classList.add('hidden');
+            document.getElementById('completionScreen').classList.remove('hidden');
+            
+            const levelInfo = levelConfig[gameState.level];
             document.getElementById('levelPoints').textContent = gameState.points;
+            document.getElementById('completionBadge').textContent = levelInfo.badge;
+            document.getElementById('completionTitle').textContent = `¡Reino ${gameState.level} Completado!`;
+            document.getElementById('completionMessage').innerHTML = `Insignia desbloqueada: <strong>${levelInfo.title}</strong>`;
+            
+            // Mostrar badge del siguiente nivel
+            if (gameState.level < 3) {
+                document.getElementById('nextLevelBadge').textContent = levelConfig[gameState.level + 1].badge;
+            }
         }
 
         function nextLevel() {
-            gameState.level++;
-            gameState.currentMission = 1;
-            document.getElementById('level').textContent = gameState.level;
-            
-            // Aquí podrías cargar el contenido del siguiente nivel
-            alert("¡Próximamente: Reino 2 - Valle de los Paréntesis!");
-            
-            // Por ahora reiniciamos al nivel 1
-            resetLevel();
+            if (gameState.level < 3) {
+                gameState.level++;
+                gameState.currentMission = levelConfig[gameState.level].missions[0];
+                updateDisplay();
+                
+                // Ocultar pantalla de completación y mostrar nuevo nivel
+                document.getElementById('completionScreen').classList.add('hidden');
+                document.getElementById(`level${gameState.level}`).classList.remove('hidden');
+                
+                // Mostrar primera misión del nuevo nivel
+                showMission(gameState.currentMission);
+                updateProgress();
+            } else {
+                // Juego completado
+                showFinalScreen();
+            }
         }
 
-        function resetLevel() {
-            document.getElementById('level1').style.display = 'block';
-            document.getElementById('completionScreen').style.display = 'none';
-            document.getElementById('mission2').style.display = 'none';
+        function showFinalScreen() {
+            document.getElementById('completionScreen').classList.add('hidden');
+            document.getElementById('finalScreen').classList.remove('hidden');
+            document.getElementById('finalPoints').textContent = gameState.points;
+        }
+
+        function restartGame() {
+            gameState = {
+                level: 1,
+                points: 0,
+                lives: 3,
+                currentMission: 1,
+                totalMissions: 6,
+                missionsCompleted: 0
+            };
             
-            // Resetear inputs y feedback
-            document.getElementById('answer1').value = '';
-            document.getElementById('answer2').value = '';
-            document.getElementById('feedback1').style.display = 'none';
-            document.getElementById('feedback2').style.display = 'none';
-            document.getElementById('hint1').style.display = 'none';
-            document.getElementById('hint2').style.display = 'none';
+            // Resetear todas las misiones
+            for (let i = 1; i <= 6; i++) {
+                const missionCard = document.getElementById(`mission${i}`);
+                missionCard.classList.remove('hidden', 'mission-complete');
+                missionCard.classList.add('hidden');
+                
+                const feedback = document.getElementById(`feedback${i}`);
+                feedback.style.display = 'none';
+                
+                const hint = document.getElementById(`hint${i}`);
+                hint.style.display = 'none';
+                
+                // Limpiar inputs
+                const input = document.getElementById(`answer${i}`);
+                if (input) input.value = '';
+                
+                const inputX = document.getElementById(`answer${i}x`);
+                if (inputX) inputX.value = '';
+                
+                const inputY = document.getElementById(`answer${i}y`);
+                if (inputY) inputY.value = '';
+                
+                hintsShown[i] = false;
+            }
             
-            hintsShown[1] = false;
-            hintsShown[2] = false;
+            // Ocultar todas las pantallas y mostrar nivel 1
+            document.getElementById('finalScreen').classList.add('hidden');
+            document.getElementById('completionScreen').classList.add('hidden');
+            document.getElementById('level2').classList.add('hidden');
+            document.getElementById('level3').classList.add('hidden');
+            document.getElementById('level1').classList.remove('hidden');
+            
+            // Mostrar primera misión
+            showMission(1);
+            updateDisplay();
+            updateProgress();
         }
 
         function gameOver() {
             if (confirm("¡Se te acabaron las vidas! ¿Quieres reintentar el nivel?")) {
                 gameState.lives = 3;
-                updateLives();
-                resetLevel();
+                updateDisplay();
+                showMission(gameState.currentMission);
             }
         }
 
-        function updatePoints() {
+        function updateDisplay() {
+            document.getElementById('level').textContent = gameState.level;
             document.getElementById('points').textContent = gameState.points;
-        }
-
-        function updateLives() {
+            document.getElementById('mission').textContent = `${gameState.currentMission}/2`;
+            
+            // Actualizar vidas
             const lives = document.querySelectorAll('.life');
             lives.forEach((life, index) => {
                 if (index < gameState.lives) {
@@ -425,9 +885,20 @@
             });
         }
 
+        function updateProgress() {
+            const levelMissions = levelConfig[gameState.level].missions;
+            const completedInLevel = levelMissions.filter(mission => 
+                mission < gameState.currentMission
+            ).length;
+            const progress = (completedInLevel / levelMissions.length) * 100;
+            
+            document.getElementById(`progress${gameState.level}`).style.width = `${progress}%`;
+        }
+
         // Inicializar el juego
-        updatePoints();
-        updateLives();
+        showMission(1);
+        updateDisplay();
+        updateProgress();
     </script>
 </body>
 </html>
